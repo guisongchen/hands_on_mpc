@@ -145,9 +145,12 @@ acceptable = {
     'L': 1.0,       # 1 kg·m²/s angular momentum error OK
     'F': 10.0,      # 10 N force variation OK
 }
-print("  Heuristic normalization Q[i] = 1/σ_i²:")
+print("  Heuristic: Q[i] = 1/σ² for states, R = 1/σ² for controls:")
 for name, sigma in acceptable.items():
-    print(f"    σ_{name} = {sigma:5.3f} → Q = {1/sigma**2:8.1f}")
+    if name == 'F':
+        print(f"    σ_{name} = {sigma:5.3f} → R = {1/sigma**2:8.1f}")
+    else:
+        print(f"    σ_{name} = {sigma:5.3f} → Q = {1/sigma**2:8.1f}")
 
 # ── 💡 WHY THIS MATTERS FOR BALANCE ─────────────────────────────────────────
 print("\n💡 Why this matters for single-leg balance:")
